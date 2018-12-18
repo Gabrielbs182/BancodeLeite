@@ -1,7 +1,6 @@
 """
 O programa armazena os dados do usuário imediatamente após o contato com o bot em duas variáveis, (Chat_id) e (nome).
 Em seguida oferece ao usuario 2 opções de interações das quais necessito da colaboração dos médicos para confecção dos textos.
-
 Oque deve ser feito ?
 Preciso ligar o programa a um banco de dados para armazenar as duas variáveis em colunas no banco de dados, uma para o chat_id
 outra para o primeiro nome e uma extra para armazenar a data da ultima interação.
@@ -12,6 +11,8 @@ e atualiza novamente no banco de dados, fazendo isso automaticamente.
 """
 
 import telebot
+import sqlite3
+from datetime import datetime
 
 bot = telebot.TeleBot( <TOKEN> )
 
@@ -20,19 +21,37 @@ def send_start(msg):
   chat_id = msg.chat.id
   nome = msg.chat.first_name
   print(chat_id)
+  print(type(chat_id))
   print(nome)
   bot.send_message(msg.chat.id , "Olá muito obrigada por se cadastrar ^^ \ncom certeza a sua doação vai fazer muita diferença na vida de algum pequeno. \nDigite 1 para receber informações sobre a doação de leite materno ou \n2 para receber as localizações dos bancos de leite proximos a você.")
 
 @bot.message_handler( content_types=['text'] )
 def texto(msg):
   texto = msg.text
-  if texto == '1':
+  chat_id = msg.chat.id
+  if chat_id == <chat_id_responsavel> and texto == '5':
+
+    conn = sqlite3.connect('leite.db')
+    cursor = conn.cursor()
+    sql = 'SELECT * FROM leite'
+    cursor.execute(sql)
+    db1 = cursor.fetchall()
+    agora = datetime.now()
+    data = '{}/{}/{}'.format(agora.day, agora.month, agora.year)
+    for i in db1:
+      print(i[2])
+      print(data)
+      if i[2] == data:
+        msg1 = "Bom dia, {} <mensagem>".format(i[1])
+      chat_id = i[0]
+      bot.send_message( chat_id , msg1 )
+
+  elif texto == '1':
 	  bot.send_message( msg.chat.id , "Texto de informações" )
   elif texto == '2':
     bot.send_message( msg.chat.id , "localização dos bancos de leite mais proximos" )
   else:
     bot.send_message( msg.chat.id , "Infelizmente não tenho nenhuma opção para a sua resposta, por favor tente uma outra resposta." )
-
 
 print("bot funcionando !!")
 bot.polling()
