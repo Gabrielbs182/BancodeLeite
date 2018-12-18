@@ -1,15 +1,13 @@
 # Banco_de_Leite
 Ferramenta para auxiliar Bancos de Leite materno a notificar seus usuários e incentivar a doação de leite materno.
+Totalmente desenvolvida em Python3 com integração inicial ao Telegram.
 
 Leitícia:
+
 *Cadastro automático do usuário no início do chat.
-
 *Armazena o Chat_ID do Usuario e o primeiro nome em um banco de dados próprio.
-
 *Envia uma mensagem de confirmação de cadastro para o usuário.
-
 *Junto com a confirmação instrui o usuário das opções de mensagem que ela possui (Sobre, Localização dos bancos de leite)
-
 *Periodicamente dispara mensagens de incentivo para todos os usuários cadastrados no banco de dados gerado por ela.
 
 #-----------------------#
