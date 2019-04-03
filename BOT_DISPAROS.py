@@ -3,7 +3,13 @@ import sqlite3
 import time
 from datetime import datetime
 
-bot = telebot.TeleBot( <TOKEN> )
+arq = open("token.txt","r")
+
+token = arq.read()
+
+arq.close()
+
+bot = telebot.TeleBot( token )
 
 periodo = int(input('Informe o periodo (em meses(maximo de 12)) que deseja efetuar os disparos: '))
 
