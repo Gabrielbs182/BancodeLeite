@@ -2,7 +2,13 @@ import telebot
 import sqlite3
 from datetime import datetime
 
-bot = telebot.TeleBot( <TOKEN> )
+arq = open("token.txt","r")
+
+token = arq.read()
+
+arq.close()
+
+bot = telebot.TeleBot( token )
 
 @bot.message_handler(commands=['start'])
 def send_start(msg):
